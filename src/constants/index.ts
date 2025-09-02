@@ -6,3 +6,5 @@ export * from './routes';
 
 // Default Values
 export * from './defaults';
+
+export * from './image';
