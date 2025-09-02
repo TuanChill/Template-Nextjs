@@ -1,23 +1,24 @@
 # Next.js Boilerplate Template
 
-A modern, production-ready Next.js boilerplate with comprehensive development tooling including Husky, lint-staged, ESLint + Prettier, Jest, React Testing Library, Storybook, and GitHub Actions.
+A modern, production-ready Next.js boilerplate with comprehensive development tooling, authentication setup, and services architecture. Built with best practices for scalable enterprise applications.
 
 ## 🚀 Features
 
-- **Next.js 15** with App Router and Turbo mode
+- **Next.js 15.1.6** with App Router and Turbo mode
 - **React 19 RC** for cutting-edge React features
-- **TypeScript** for type safety
+- **TypeScript 5.7.3** for type safety
 - **Tailwind CSS** with animations and custom scrollbar
 - **Shadcn/ui** components with Radix UI primitives
-- **Zustand** for state management
-- **Axios** for HTTP requests
+- **Zustand** for state management with persistence
+- **Axios** with interceptors for HTTP requests
 - **T3 Env** for type-safe environment variables
 - **Jest** & **React Testing Library** for testing
-- **Storybook** for component development
 - **ESLint** & **Prettier** for code quality
 - **Husky** & **lint-staged** for git hooks
 - **GitHub Actions** for CI/CD
-- **Dark/Light theme** support
+- **Dark/Light theme** support with next-themes
+- **Authentication** service layer with JWT support
+- **Services architecture** with proper separation of concerns
 
 ## 📁 Project Structure
 
@@ -27,6 +28,7 @@ template-nextjs-fe/
 │   ├── workflows/              # CI/CD workflows
 │   │   ├── main.yml           # Main CI workflow
 │   │   └── dependency-review.yml
+│   └── dependabot.yml         # Dependabot configuration
 ├── .husky/                     # Git hooks
 │   ├── commit-msg             # Commit message validation
 │   ├── pre-commit             # Lint-staged runner
@@ -36,49 +38,70 @@ template-nextjs-fe/
 │   └── vercel.svg
 ├── src/
 │   ├── app/                    # Next.js App Router
-│   │   ├── layout.tsx          # Root layout
+│   │   ├── layout.tsx          # Root layout with theme support
 │   │   └── page.tsx            # Home page
 │   ├── components/             # React components
-│   │   └── components/
-│   │       ├── ui/             # Shadcn/ui components
-│   │       │   ├── button.tsx
-│   │       │   ├── input.tsx
-│   │       │   └── sonner.tsx
-│   │       └── common/         # Common components
-│   │           └── button.tsx
+│   │   ├── ui/                 # Shadcn/ui components
+│   │   │   ├── button.tsx      # Button component with variants
+│   │   │   ├── input.tsx       # Input component
+│   │   │   └── sonner.tsx      # Toast notifications
+│   │   ├── layout/             # Layout components
+│   │   │   └── header.tsx      # Header component
+│   │   └── common/             # Common components
+│   │       └── button.tsx      # Custom button component
 │   ├── config/                 # Configuration files
-│   │   ├── api-axios.ts        # Axios configuration
 │   │   ├── env.ts              # Environment validation (T3 Env)
-│   │   ├── fonts.ts            # Font configuration
+│   │   ├── fonts.ts            # Font configuration (Inter, Fira Code)
 │   │   └── site.ts             # Site configuration
 │   ├── constants/              # App constants
 │   │   ├── api.ts              # API endpoints
-│   │   ├── defaults.ts         # Default values
-│   │   └── routes.ts           # Route constants
+│   │   ├── defaults.ts         # Default values (pagination, etc.)
+│   │   ├── routes.ts           # Route constants
+│   │   └── index.ts            # Barrel exports
 │   ├── hooks/                  # Custom React hooks
+│   │   └── index.ts            # Barrel exports
 │   ├── lib/                    # Utility libraries
+│   │   ├── validators/         # Zod schemas and validators
 │   │   └── utils/              # Utility functions
-│   │       ├── index.ts
-│   │       └── cn/             # Class name utilities
-│   ├── request/                # API request functions
-│   │   └── auth.ts
+│   │       ├── cn/             # Class name utilities
+│   │       └── index.ts        # Barrel exports
+│   ├── providers/              # React context providers
+│   │   ├── auth-provider.tsx   # Authentication provider
+│   │   ├── theme-provider.tsx  # Theme provider
+│   │   └── index.ts            # Barrel exports
+│   ├── request/                # Legacy API request functions
+│   │   └── auth.ts             # Auth requests (deprecated)
+│   ├── services/               # Service layer architecture
+│   │   ├── api/                # API service modules
+│   │   │   ├── auth.service.ts # Authentication services
+│   │   │   └── index.ts        # API barrel exports
+│   │   ├── http/               # HTTP client configuration
+│   │   │   ├── client.ts       # Axios client with interceptors
+│   │   │   └── index.ts        # HTTP barrel exports
+│   │   └── index.ts            # Services barrel exports
 │   ├── stores/                 # Zustand stores
-│   │   └── user.store.ts
+│   │   ├── user.store.ts       # User authentication store
+│   │   └── index.ts            # Store barrel exports
 │   ├── styles/                 # Global styles
-│   │   └── globals.css
+│   │   └── globals.css         # Tailwind CSS with custom variables
 │   └── types/                  # TypeScript type definitions
-│       ├── user.ts
-│       ├── request/
-│       └── response/
-├── __mocks__/                  # Jest mocks
+│       ├── user.ts             # User types
+│       ├── request/            # Request type definitions
+│       │   ├── auth.ts
+│       │   └── index.ts
+│       ├── response/           # Response type definitions
+│       │   ├── common.ts       # Common API response types
+│       │   └── index.ts
+│       └── index.ts            # Type barrel exports
 ├── .env.example                # Environment variables template
 ├── components.json             # Shadcn/ui configuration
-├── jest.config.js              # Jest configuration
-├── jest.setup.js               # Jest setup
+├── jest.config.js              # Jest configuration with coverage
+├── jest.setup.js               # Jest setup file
 ├── tailwind.config.js          # Tailwind CSS configuration
 ├── tsconfig.json               # TypeScript configuration
-├── eslint.config.mjs           # ESLint configuration
-└── prettier.config.js          # Prettier configuration
+├── eslint.config.mjs           # ESLint configuration (flat config)
+├── prettier.config.js          # Prettier configuration
+└── postcss.config.js           # PostCSS configuration
 ```
 
 ## 🛠️ Technology Stack
@@ -102,10 +125,10 @@ template-nextjs-fe/
 
 ### State Management & HTTP
 
-- **Zustand 5.0.8** - Lightweight state management
-- **Axios 1.11.0** - HTTP client with interceptors
-- **T3 Env** - Type-safe environment variables
-- **Zod 3.24.1** - Schema validation
+- **Zustand 5.0.8** - Lightweight state management with persistence
+- **Axios 1.11.0** - HTTP client with request/response interceptors
+- **T3 Env 0.12.0** - Type-safe environment variables
+- **Zod 3.24.1** - Schema validation and type inference
 
 ### Testing
 
@@ -116,11 +139,10 @@ template-nextjs-fe/
 
 ### Development Tools
 
-- **Storybook 8.5.3** - Component development
-- **ESLint 9.19.0** - Code linting with extensive plugins
-- **Prettier 3.4.2** - Code formatting
-- **Husky 9.1.7** - Git hooks
-- **lint-staged 15.4.3** - Pre-commit linting
+- **ESLint 9.19.0** - Code linting with flat config and extensive plugins
+- **Prettier 3.4.2** - Code formatting with Tailwind plugin
+- **Husky 9.1.7** - Git hooks for quality enforcement
+- **lint-staged 15.4.3** - Pre-commit linting and formatting
 
 ## 🚀 Quick Start
 
@@ -153,7 +175,7 @@ template-nextjs-fe/
    Update the environment variables:
 
    ```env
-   NEXT_PUBLIC_APP_DOMAIN=http://localhost:3000
+   NEXT_PUBLIC_API_BASE=http://localhost:3001/api/v1/
    ```
 
 4. **Start development server**
@@ -198,11 +220,11 @@ pnpm postinstall        # Setup Husky hooks
 The project uses T3 Env for type-safe environment variable validation. Create a `.env.local` file:
 
 ```env
-# App Configuration
-NEXT_PUBLIC_APP_DOMAIN=http://localhost:3000
+# API Configuration
+NEXT_PUBLIC_API_BASE=http://localhost:3001/api/v1/
 ```
 
-Environment validation is configured in [`src/config/env.ts`](src/config/env.ts).
+Environment validation is configured in [`src/config/env.ts`](src/config/env.ts) with proper Zod schemas.
 
 ### Package Manager
 
@@ -224,18 +246,38 @@ The project is configured to use **pnpm 9.1.1+** with specific overrides for Rea
 
 Components are configured in [`components.json`](components.json) for easy customization and generation.
 
-## 🎨 Design System
+## 🎨 Design System & Architecture
+
+### Services Architecture
+
+The project follows a clean services architecture pattern:
+
+- **HTTP Client** (`src/services/http/client.ts`): Configured Axios instance with interceptors
+- **API Services** (`src/services/api/`): Organized by domain (auth, users, etc.)
+- **Authentication** (`src/services/api/auth.service.ts`): Complete auth flow with JWT
+- **Request/Response Types** (`src/types/`): Strongly typed API contracts
+
+### State Management
+
+- **User Store** (`src/stores/user.store.ts`): Authentication state with persistence
+- **Zustand Middleware**: Automatic persistence to localStorage
+- **JWT Handling**: Automatic token attachment to API requests
 
 ### Theme Support
 
-Built-in dark/light mode support using `next-themes` with system preference detection.
+Built-in dark/light mode support using `next-themes` with:
+
+- System preference detection
+- CSS custom properties for theming
+- Seamless theme switching
+- Toast notifications with theme awareness
 
 ### Component Library
 
 - **Base components**: Shadcn/ui with Radix UI primitives
-- **Icons**: Lucide React icon library
+- **Icons**: Lucide React icon library (0.542.0)
 - **Animations**: Tailwind CSS animations
-- **Notifications**: Sonner toast library
+- **Notifications**: Sonner toast library with theme integration
 - **Utilities**: CVA for component variants, clsx and tailwind-merge for class management
 
 ## 🧪 Testing
@@ -324,15 +366,17 @@ revert(scope): revert changes
 
 ### ESLint Configuration
 
-Comprehensive ESLint setup with:
+Comprehensive ESLint setup with flat config format including:
 
-- TypeScript support
-- React and React Hooks rules
-- Next.js best practices
-- Import helpers for organized imports
-- Prettier integration
-- Testing Library rules
-- Storybook support
+- **TypeScript support** with @typescript-eslint
+- **React and React Hooks** rules
+- **Next.js best practices**
+- **Import helpers** for organized imports with custom ordering
+- **Prettier integration** for formatting consistency
+- **Testing Library rules** for test files
+- **Custom rules** for code quality (no-console, unused-vars, etc.)
+
+Configuration follows the new ESLint flat config format for better performance and maintainability.
 
 ## 🚀 CI/CD
 
@@ -342,30 +386,63 @@ The main workflow (`.github/workflows/main.yml`) includes:
 
 1. **Prettier Check**
 
-   - Validates code formatting
+   - Validates code formatting consistency
    - Uses pnpm 8.10.2 and Node.js 18
+   - Skips environment validation during CI
 
 2. **ESLint Check**
 
-   - Runs linting rules
-   - Automatically fixes issues
+   - Runs comprehensive linting rules
+   - Automatically fixes auto-fixable issues
+   - Enforces code quality standards
 
 3. **Jest Testing**
 
-   - Runs comprehensive test suite
+   - Runs full test suite with coverage
    - Requires prettier and eslint checks to pass
+   - Validates component and utility functions
 
 4. **Next.js Build**
-   - Validates production build
+   - Validates production build process
+   - Ensures all components compile correctly
    - Requires all previous checks to pass
 
 ### Dependency Management
 
 - **Dependency Review**: Automated security scanning for PRs
+- **Dependabot**: Automated dependency updates (`.github/dependabot.yml`)
 - **Node.js Engine**: Locked to 18.20.2+
 - **pnpm Version**: Locked with SHA for reproducible builds
 
 ## 📚 Development Workflow
+
+### Services Architecture Usage
+
+The project implements a clean services architecture:
+
+1. **API Services**: Use services from `src/services/api/`
+
+   ```typescript
+   import { authService } from '@/services/api';
+
+   const user = await authService.getMe();
+   ```
+
+2. **HTTP Client**: Pre-configured with interceptors
+
+   ```typescript
+   import { httpClient } from '@/services/http';
+
+   const response = await httpClient.get('/endpoint');
+   ```
+
+3. **State Management**: Zustand stores with persistence
+
+   ```typescript
+   import { useUserStore } from '@/stores';
+
+   const { user, setAuth, clear } = useUserStore();
+   ```
 
 ### Adding New Components
 
@@ -379,48 +456,109 @@ The main workflow (`.github/workflows/main.yml`) includes:
 
 3. Write tests in adjacent `__tests__` folders
 
-4. Document with Storybook stories
+4. Follow the established patterns for props and variants
 
 ### API Integration
 
-Configure API clients in `src/config/api-axios.ts` with:
+The HTTP client (`src/services/http/client.ts`) is configured with:
 
-- Base URL configuration
-- Request/response interceptors
-- Error handling
-- Authentication token management
+- **Base URL** from environment variables
+- **Request interceptors** for automatic JWT token attachment
+- **Response interceptors** for global error handling (401 unauthorized)
+- **Timeout configuration** (5 minutes)
+- **Content limits** (1GB) for file uploads
 
 ### State Management
 
 Use Zustand stores in `src/stores/` for:
 
-- User authentication state
-- Global application state
-- Persistent data with middleware
+- **User authentication** state with JWT tokens
+- **Persistent data** with automatic localStorage sync
+- **Type-safe** state management with TypeScript
+
+The user store includes:
+
+- `setAuth(user, jwt)` - Set user and token
+- `setUserInfo(user)` - Update user info only
+- `clear()` - Clear all auth data
+- `isAuthenticated()` - Check auth status
+- `reload()` - Refresh user data from API
 
 ## 🔧 Customization
 
 ### Extending the Template
 
-1. **Add new dependencies**: Use pnpm for package management
-2. **Configure tools**: Update respective config files
-3. **Extend CI/CD**: Modify GitHub Actions workflows
-4. **Add features**: Follow established patterns and conventions
+1. **Add new API services**: Create new service files in `src/services/api/`
+2. **Add dependencies**: Use pnpm for package management
+3. **Configure tools**: Update respective config files
+4. **Extend CI/CD**: Modify GitHub Actions workflows
+5. **Add features**: Follow established patterns and barrel exports
+
+### Adding New Services
+
+1. Create service file in `src/services/api/`:
+
+   ```typescript
+   // src/services/api/posts.service.ts
+   import { httpClient } from '@/services/http';
+
+   export const getPosts = async () => {
+     const response = await httpClient.get('/posts');
+     return response.data;
+   };
+   ```
+
+2. Export from barrel file:
+   ```typescript
+   // src/services/api/index.ts
+   export * as postsService from './posts.service';
+   ```
 
 ### Performance Optimization
 
 - **Turbo mode**: Enabled for faster development builds
 - **Bundle analysis**: Available through Next.js built-in analyzer
 - **Image optimization**: Next.js Image component ready
-- **Font optimization**: Next.js font optimization configured
+- **Font optimization**: Next.js font optimization configured with Inter and Fira Code
 
 ## 🤝 Contributing
 
 1. Fork the repository
 2. Create a feature branch following naming conventions
-3. Make changes following code quality standards
-4. Ensure all tests pass and coverage meets thresholds
-5. Submit a pull request with conventional commit messages
+3. Make changes following the established code quality standards
+4. Ensure all tests pass and coverage meets thresholds (70%)
+5. Follow the conventional commit format
+6. Submit a pull request with descriptive commit messages
+
+## 🏗️ Architecture Decisions
+
+### Services Layer Pattern
+
+- **Separation of Concerns**: API logic separated from components
+- **Reusability**: Services can be used across multiple components
+- **Testing**: Easier to unit test business logic
+- **Maintainability**: Centralized API handling
+
+### Barrel Exports
+
+- **Clean Imports**: Single import statement for multiple modules
+- **Refactoring**: Easier to restructure without breaking imports
+- **Tree Shaking**: Better support for dead code elimination
+
+### Type Safety
+
+- **T3 Env**: Runtime environment validation
+- **Zod Schemas**: API response validation
+- **TypeScript**: Compile-time type checking
+- **Strict Configuration**: Maximum type safety enabled
+
+### Performance Considerations
+
+- **App Router**: Latest Next.js routing for optimal performance
+- **Turbo Mode**: Faster development builds
+- **Code Splitting**: Automatic route-based splitting
+- **Font Optimization**: Next.js font optimization
+- **Image Optimization**: Built-in Next.js image optimization
 
 ## 📄 License
 
@@ -431,7 +569,10 @@ This project is licensed under the MIT License.
 For support and questions:
 
 - Create an issue in the [GitHub repository](https://github.com/TuanChill/Template-Nextjs)
-- Check existing documentation and issues
-- Review the comprehensive configuration files
+- Check existing documentation and configuration files
+- Review the comprehensive project structure and examples
+- Follow the established patterns and conventions
 
 ---
+
+**Built with ❤️ for modern web development**
