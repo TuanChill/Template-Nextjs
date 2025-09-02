@@ -1,5 +1,5 @@
 import { env } from '@/config/env';
-import { useUserStore } from '@/stores/user.store';
+import { useUserStore } from '@/stores';
 import Axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
 const baseUrl = env.NEXT_PUBLIC_API_BASE || 'http://localhost:3001/api/v1/';
@@ -23,10 +23,10 @@ const getCurrentAccessToken = async () => {
   return token;
 };
 
-export const apiAxios = Axios.create(axiosOptions);
+export const httpClient = Axios.create(axiosOptions);
 
-// request interceptor to add token to request headers
-apiAxios.interceptors.request.use(
+// Request interceptor to add token to request headers
+httpClient.interceptors.request.use(
   async (config: InternalAxiosRequestConfig) => {
     const token = await getCurrentAccessToken();
     if (token) {
@@ -35,16 +35,22 @@ apiAxios.interceptors.request.use(
 
     return config;
   },
-  (error) => Promise.reject(error)
+  (error: AxiosError) => {
+    return Promise.reject(error);
+  }
 );
 
-// Add a response interceptor
-apiAxios.interceptors.response.use(
+// Response interceptor for global error handling
+httpClient.interceptors.response.use(
   (response: AxiosResponse) => {
     return response;
   },
-  (error: AxiosError) => {
-    // If no response or message, return the original error
+  async (error: AxiosError) => {
+    if (error.response?.status === 401) {
+      // Handle unauthorized access
+      useUserStore.getState().clear();
+    }
+
     return Promise.reject(error);
   }
 );
