@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 import '@/styles/globals.css';
-import { Toaster } from '@/components/components/ui/sonner';
+import { Toaster } from '@/components/ui/sonner';
 
 export const metadata: Metadata = {
   title: 'Create Next App',

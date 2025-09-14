@@ -1,4 +1,4 @@
-import { getMe } from '@/request/auth';
+import { getMe } from '@/services/api';
 import { User } from '@/types/user';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
