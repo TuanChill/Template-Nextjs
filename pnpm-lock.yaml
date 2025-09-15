@@ -17,7 +17,7 @@ importers:
         version: 1.2.3(react@19.0.0-rc-65a56d0e-20241020)(types-react@19.0.0-rc.1)
       '@t3-oss/env-nextjs':
         specifier: 0.12.0
-        version: 0.12.0(typescript@5.7.3)(zod@3.24.1)
+        version: 0.12.0(typescript@5.7.3)(zod@3.25.76)
       axios:
         specifier: ^1.11.0
         version: 1.11.0
@@ -52,8 +52,8 @@ importers:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.17)
       zod:
-        specifier: 3.24.1
-        version: 3.24.1
+        specifier: 3.25.76
+        version: 3.25.76
       zustand:
         specifier: ^5.0.8
         version: 5.0.8(react@19.0.0-rc-65a56d0e-20241020)(types-react@19.0.0-rc.1)
@@ -3800,8 +3800,8 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
-  zod@3.24.1:
-    resolution: {integrity: sha512-muH7gBL9sI1nciMZV67X5fTKKBLtwpZ5VBp1vsOQzj1MhrBZ4wlVCm3gedKZWLp0Oyel8sIGfeiz54Su+OVT+A==}
+  zod@3.25.76:
+    resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
 
   zustand@5.0.8:
     resolution: {integrity: sha512-gyPKpIaxY9XcO2vSMrLbiER7QMAMGOQZVRdJ6Zi782jkbzZygq5GI9nG8g+sMgitRtndwaBSl7uiqC49o1SSiw==}
@@ -4581,17 +4581,17 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@t3-oss/env-core@0.12.0(typescript@5.7.3)(zod@3.24.1)':
+  '@t3-oss/env-core@0.12.0(typescript@5.7.3)(zod@3.25.76)':
     optionalDependencies:
       typescript: 5.7.3
-      zod: 3.24.1
+      zod: 3.25.76
 
-  '@t3-oss/env-nextjs@0.12.0(typescript@5.7.3)(zod@3.24.1)':
+  '@t3-oss/env-nextjs@0.12.0(typescript@5.7.3)(zod@3.25.76)':
     dependencies:
-      '@t3-oss/env-core': 0.12.0(typescript@5.7.3)(zod@3.24.1)
+      '@t3-oss/env-core': 0.12.0(typescript@5.7.3)(zod@3.25.76)
     optionalDependencies:
       typescript: 5.7.3
-      zod: 3.24.1
+      zod: 3.25.76
 
   '@testing-library/dom@10.4.0':
     dependencies:
@@ -7933,7 +7933,7 @@ snapshots:
 
   yocto-queue@0.1.0: {}
 
-  zod@3.24.1: {}
+  zod@3.25.76: {}
 
   zustand@5.0.8(react@19.0.0-rc-65a56d0e-20241020)(types-react@19.0.0-rc.1):
     optionalDependencies:
