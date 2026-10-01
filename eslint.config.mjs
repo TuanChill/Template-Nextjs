@@ -4,6 +4,7 @@ import importHelpers from 'eslint-plugin-import-helpers';
 import testingLibrary from 'eslint-plugin-testing-library';
 import globals from 'globals';
 import tsParser from '@typescript-eslint/parser';
+import { plugin as shadcn } from '@shadcn/lint';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import js from '@eslint/js';
@@ -41,7 +42,8 @@ export default [
       react,
       '@typescript-eslint': typescriptEslint,
       'import-helpers': importHelpers,
-      'testing-library': testingLibrary
+      'testing-library': testingLibrary,
+      shadcn
     },
 
     languageOptions: {
