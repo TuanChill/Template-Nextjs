@@ -1,3 +1,4 @@
+import { QueryProvider } from '@/providers/query-provider';
 import { Metadata } from 'next';
 
 import '@/styles/globals.css';
@@ -16,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`antialiased`}>
-        {children}
+        <QueryProvider>{children}</QueryProvider>
         <Toaster />
       </body>
     </html>

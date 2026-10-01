@@ -1,11 +1,12 @@
 import { API_URL } from '@/constants/api';
 import { httpClient } from '@/services/http';
+import type { User } from '@/types/user';
 
 /**
  * Get current user information
  */
 export const getMe = async () => {
-  const response = await httpClient.get(`${API_URL.GET_ME}`);
+  const response = await httpClient.get<User>(API_URL.GET_ME);
 
   return response.data;
 };
