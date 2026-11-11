@@ -4,7 +4,7 @@ A modern, production-ready Next.js boilerplate with comprehensive development to
 
 ## 🚀 Features
 
-- **Next.js 15.1.6** with App Router and Turbo mode
+- **Next.js 16.4.6** with App Router and Turbo mode
 - **React 19 RC** for cutting-edge React features
 - **TypeScript 5.7.3** for type safety
 - **Tailwind CSS** with animations and custom scrollbar
@@ -108,7 +108,7 @@ template-nextjs-fe/
 
 ### Core Framework
 
-- **Next.js 15.1.6** - React framework with App Router and Turbo mode
+- **Next.js 16.4.6** - React framework with App Router and Turbo mode
 - **React 19 RC** - Latest React features
 - **TypeScript 5.7.3** - Type safety and developer experience
 
@@ -148,7 +148,7 @@ template-nextjs-fe/
 
 ### Prerequisites
 
-- **Node.js 18.20.2+** (specified in package.json engines)
+- **Node.js 20.9+** (specified in package.json engines)
 - **pnpm 9.1.1+** (recommended package manager)
 
 ### Installation
@@ -387,7 +387,7 @@ The main workflow (`.github/workflows/main.yml`) includes:
 1. **Prettier Check**
 
    - Validates code formatting consistency
-   - Uses pnpm 8.10.2 and Node.js 18
+   - Uses pnpm 8.10.2 and Node.js 20
    - Skips environment validation during CI
 
 2. **ESLint Check**
@@ -411,7 +411,7 @@ The main workflow (`.github/workflows/main.yml`) includes:
 
 - **Dependency Review**: Automated security scanning for PRs
 - **Dependabot**: Automated dependency updates (`.github/dependabot.yml`)
-- **Node.js Engine**: Locked to 18.20.2+
+- **Node.js Engine**: Locked to 20.9+
 - **pnpm Version**: Locked with SHA for reproducible builds
 
 ## 📚 Development Workflow
