@@ -8,6 +8,7 @@ import { plugin as shadcn } from '@shadcn/lint';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import js from '@eslint/js';
+import nextVitals from 'eslint-config-next/core-web-vitals';
 import { FlatCompat } from '@eslint/eslintrc';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -28,8 +29,8 @@ export default [
       'src/styles/globals.css'
     ]
   },
+  ...nextVitals,
   ...compat.extends(
-    'next/core-web-vitals',
     'eslint:recommended',
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
